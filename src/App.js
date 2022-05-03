@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
 // Css
 import './App.css';
+// Axios
+import axios from 'axios';
+// Components
+import Card from './components/Card';
 
 const colors = ['#eeeeee', '#ffffff', '#3b3f52', '#272a39'];
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(true);
   const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    axios.get('https://restcountries.com/v2/all')
+      .then(res => setCountries(res.data))
+      .catch(error => console.log(error.message))
+  }, [])
 
   return (
     <div className='container' style={{ backgroundColor: darkMode ? colors[3] : colors[1], color: darkMode ? 'white' : 'black' }}>
@@ -37,7 +47,11 @@ const App = () => {
         </div>
         {/* Cards */}
         <div className='countries-div'>
-          
+          {countries.length > 0 && countries.map((i, index) => {
+            return (
+              <Card key={index} data={i} />
+            )
+          })}
         </div>
       </div>
     </div>
