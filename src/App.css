@@ -5,13 +5,13 @@
   font-family: 'Nunito Sans', sans-serif;
 }
 
+/* Main container */
 .container {
   width: 100%;
   min-height: 100vh;
-
-  /* overflow: hidden; */
 }
 
+/* Header */
 .header {
   padding: 20px 100px;
   display: flex;
@@ -38,6 +38,7 @@
   margin-right: 15px;
 }
 
+/* Home Body */
 .body-container {
   width: 100%;
   height: 100%;
@@ -50,11 +51,11 @@
   align-items: center;
 }
 
-.input-div {
+.form {
   width: 40%;
   position: relative;
 }
-.input-div > input {
+.form > input {
   font-size: 18px;
   width: 100%;
   height: 100%;
@@ -66,10 +67,10 @@
   background-color: #3b3f52;
   color: inherit;
 }
-.input-div > input:focus {
+.form > input:focus {
   outline: none;
 }
-.input-div > i {
+.form > i {
   position: absolute;
   left: 30px;
   top: 50%;
@@ -102,12 +103,14 @@
   gap: 30px;
 }
 
+/* Country Card */
 .card {
   width: 100%;
-  height: 300px;
+  min-height: 300px;
   border: none;
   border-radius: 4px;
   background-color: #3b3f52;
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;
@@ -144,4 +147,81 @@
 }
 .card-population {
   margin-top: 14px !important;
+}
+
+/* Info Div */
+
+.info-div {
+  width: 100%;
+  height: 100%;
+  padding: 50px 100px;
+}
+.back-btn {
+  padding: 10px;
+  background-color: #3b3f52;
+  border: none;
+  border-radius: 4px;
+  font-size: 17px;
+  color: inherit;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.back-btn:hover {
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+}
+.back-btn > i {
+  margin-right: 5px;
+}
+.info-div > div {
+  margin-top: 50px;
+
+  display: flex;
+  min-height: 300px;
+}
+
+.info-left-div {
+  width: 50%;
+  height: 100%;
+}
+.info-left-div > img {
+  width: 100%;
+}
+
+.info-right-div {
+  width: 50%;
+  height: 100%;
+
+  padding-left: 120px;
+  padding-top: 40px;
+}
+.info-right-div > h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: inherit;
+}
+.info-right-div > div {
+  margin-top: 30px;
+
+  width: 100%;
+  display: flex;
+}
+.div-left-info {
+  width: 50%;
+}
+.div-left-info > p,
+.div-right-info > p {
+  margin-top: 6px;
+}
+.div-left-info span,
+.div-right-info span {
+  color: #a8a4a4;
+  margin-left: 4px;
+}
+.div-right-info {
+  width: 50%;
+}
+
+.info-right-div > p {
+  margin-top: 100px;
 }

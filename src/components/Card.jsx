@@ -2,7 +2,7 @@ import React from 'react';
 
 const Card = ({ data, handleInfo }) => {
   return (
-    <div className='card' onClick={() => handleInfo(data.name)}>
+    <div className='card' onClick={() => handleInfo(data)}>
       <div className='card-top'>
         <img src={data.flags.png} alt='logo' />
       </div>
