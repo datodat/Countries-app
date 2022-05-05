@@ -1,8 +1,10 @@
-import React from 'react';
-
-const Card = ({ data, handleInfo }) => {
+const Card = ({ data, handleInfo, backColor }) => {
   return (
-    <div className='card' onClick={() => handleInfo(data)}>
+    <div 
+      className='card' 
+      onClick={() => handleInfo(data)} 
+      style={{ backgroundColor: backColor }}
+    >
       <div className='card-top'>
         <img src={data.flags.png} alt='logo' />
       </div>

@@ -1,9 +1,13 @@
-import React from 'react';
-
-const Info = ({ data, handleBack }) => {
+const Info = ({ data, handleBack, countries, backColor }) => {
   return (
     <div className='info-div'>
-      <button className='back-btn' onClick={handleBack}><i className="fa-solid fa-arrow-left-long"></i> Back</button>
+      <button 
+        className='back-btn'
+        style={{ backgroundColor: backColor }}
+        onClick={handleBack}
+      >
+        <i className="fa-solid fa-arrow-left-long"></i> Back
+      </button>
       <div>
         <div className='info-left-div'>
           <img src={data.flags.png} alt='logo' />
@@ -19,12 +23,12 @@ const Info = ({ data, handleBack }) => {
               <p>Capital: <span>{data.capital}</span></p>
             </div>
             <div className='div-right-info'>
-              <p>Top Level Domain: <span>{data.topLevelDomain.map((i, index) => i)}</span></p>
-              <p>Currencies: <span>{data.currencies.map((i, index) => i.code)}</span></p>
-              <p>Languages: <span>{data.languages.map((i, index) => i.name)}</span></p>
+              {data.topLevelDomain && <p>Top Level Domain: <span>{data.topLevelDomain.map((i, index) => i).join(', ')}</span></p>}
+              {data.currencies && <p>Currencies: <span>{data.currencies.map((i, index) => i.code).join(', ')}</span></p>}
+              {data.languages && <p>Languages: <span>{data.languages.map((i, index) => i.name).join(', ')}</span></p>}
             </div>
           </div>
-          <p>Border Countries: </p>
+          {data.borders && <p className='border-countries'>Border Countries: {data.borders.map((i, index) => i).join(', ')}</p>}
         </div>
       </div>
     </div>

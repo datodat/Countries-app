@@ -8,7 +8,12 @@ import Header from './components/Header';
 import Home from './components/Home';
 import Info from './components/Info';
 
-const colors = ['#eeeeee', '#ffffff', '#3b3f52', '#272a39'];
+const colors = [
+  '#eeeeee', // Background light
+  '#ffffff', // Header light
+  '#3b3f52', // Header dark
+  '#272a39'  // Background dark
+];
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(true);
@@ -17,20 +22,25 @@ const App = () => {
 
   const [countries, setCountries] = useState([]);
   const [searchWord, setSearchWord] = useState('');
-  const [region, setRegion] = useState(null);
+
+  const [showBtn, setShowBtn] = useState(false);
 
   useEffect(() => {
     handleAll();
   }, [])
 
+  // Scroll down listener
   useEffect(() => {
-    if(region){
-      handleRegion();
-    }else{
-      handleAll();
-    }
-  }, [region]) //eslint-disable-line
+    window.addEventListener('scroll', () => {
+      if(window.scrollY > 400){
+        setShowBtn(true);
+      }else{
+        setShowBtn(false);
+      }
+    })
+  }, [])
 
+  // All countries 
   const handleAll = () => {
     setShowInfo(false);
     axios.get('https://restcountries.com/v2/all')
@@ -41,6 +51,7 @@ const App = () => {
       .catch(error => console.log(error.message))
   }
 
+  // Search handler
   const handleSearch = () => {
     if(searchWord){
       axios.get(`https://restcountries.com/v2/name/${searchWord}`)
@@ -54,12 +65,7 @@ const App = () => {
     }
   }
 
-  const handleRegion = () => {
-    axios.get(`https://restcountries.com/v2/continent/${region}`)
-      .then(res => setCountries(res.data))
-      .catch(error => console.log(error.message))
-  }
-
+  // Go to detailed information
   const handleInfo = (data) => {
     if(data){
       setClickedCountry(data);
@@ -67,13 +73,34 @@ const App = () => {
     }
   }
 
+  // Back button in one country information
   const handleBack = () => {
     setShowInfo(false);
     handleAll();
   }
 
+  // Back to top after scroll down handler
+  const goToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+
   return (
-    <div className='container' style={{ backgroundColor: darkMode ? colors[3] : colors[1], color: darkMode ? 'white' : 'black' }}>
+    <div className='container' style={{ backgroundColor: darkMode ? colors[3] : colors[0], color: darkMode ? 'white' : 'black' }}>
+      {/* Button to back top after scroll down */}
+      <button 
+        style={{ 
+          display: showBtn ? 'inline-block' : 'none',
+          backgroundColor: darkMode ? '#161a2e' : '#b5b5b5'
+        }} 
+        className='go-top' 
+        onClick={() => goToTop()}
+      >
+        <i className="fa-solid fa-arrow-up-long"></i>
+      </button>
+      {/* Header */}
       <Header 
         darkMode={darkMode} 
         setDarkMode={setDarkMode} 
@@ -81,18 +108,22 @@ const App = () => {
         colors={colors}
       />
       {showInfo ?
+        // One Country info
         <Info 
           data={clickedCountry}
           handleBack={handleBack}
+          countries={countries}
+          backColor={darkMode ? colors[2] : colors[1]}
         /> 
           :
+        // All Countries
         <Home 
           handleSearch={handleSearch}
           searchWord={searchWord}
           setSearchWord={setSearchWord}
-          setRegion={setRegion}
           handleInfo={handleInfo}
           countries={countries}
+          backColor={darkMode ? colors[2] : colors[1]}
         />
       }
     </div>

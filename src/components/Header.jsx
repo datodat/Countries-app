@@ -1,13 +1,17 @@
-import React from 'react';
-
 const Header = ({ darkMode, setDarkMode, handleAll, colors }) => {
   return (
-    <header className='header' style={{ backgroundColor: darkMode ? colors[2] : colors[0] }}>
+    <header id="header" className='header' style={{ backgroundColor: darkMode ? colors[2] : colors[1] }}>
       <h1 onClick={handleAll}>Where in the world?</h1>
       <button onClick={() => setDarkMode(!darkMode)}>
-        <i className="fa-solid fa-moon icon-dark"></i>
-        <i className="fa-solid fa-brightness icon-light"></i>
-        Dark Mode
+        <i 
+          className="fa-solid fa-moon"
+          style={{ display: darkMode ? 'none' : '' }}  
+        ></i>
+        <i 
+          className="fa-solid fa-sun"
+          style={{ display: darkMode ? '' : 'none' }}
+        ></i>
+        {darkMode ? 'Light Mode' : 'Dark Mode'}
       </button>
     </header>
   );
